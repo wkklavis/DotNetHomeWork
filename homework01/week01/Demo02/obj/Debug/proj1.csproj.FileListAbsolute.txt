@@ -1,0 +1,14 @@
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\bin\Debug\Demo02.exe.config
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\bin\Debug\Demo02.exe
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\bin\Debug\Demo02.pdb
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\obj\Debug\proj1.csprojAssemblyReference.cache
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\obj\Debug\proj1.csproj.CoreCompileInputs.cache
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\obj\Debug\Demo02.exe
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo02\obj\Debug\Demo02.pdb
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\bin\Debug\Demo02.exe.config
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\bin\Debug\Demo02.exe
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\bin\Debug\Demo02.pdb
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\obj\Debug\proj1.csprojAssemblyReference.cache
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\obj\Debug\proj1.csproj.CoreCompileInputs.cache
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\obj\Debug\Demo02.exe
+C:\Users\86188\Documents\mycode\C#\Homework01\Demo02\obj\Debug\Demo02.pdb

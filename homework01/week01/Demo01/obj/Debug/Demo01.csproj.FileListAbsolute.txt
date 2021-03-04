@@ -1,0 +1,9 @@
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\bin\Debug\Demo01.exe.config
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\bin\Debug\Demo01.exe
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\bin\Debug\Demo01.pdb
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\obj\Debug\Demo01.csprojAssemblyReference.cache
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\obj\Debug\Demo01.Properties.Resources.resources
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\obj\Debug\Demo01.csproj.GenerateResource.cache
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\obj\Debug\Demo01.csproj.CoreCompileInputs.cache
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\obj\Debug\Demo01.exe
+C:\Users\86188\Documents\mycode\C#\Demo01\Demo01\obj\Debug\Demo01.pdb
