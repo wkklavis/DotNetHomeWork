@@ -27,6 +27,7 @@ namespace demo03
             //throw new NotImplementedException();
             for(int div = 2; div <= 100; div++)//除数遍历
             {
+                if (array[div] == 0) continue;
                 //处理数组中的数
                 for(int i = 2; i <= 100; i++)
                 {
