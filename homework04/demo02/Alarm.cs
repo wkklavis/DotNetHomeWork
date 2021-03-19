@@ -8,9 +8,9 @@ namespace demo02
 {
     class Alarm
     {
-        int ss;
-        int mm;
-        int hh;
+        private int ss;
+        private int mm;
+        private int hh;
 
         public int Alarmss { get; set; }
         public int Alarmmm { get; set; }
