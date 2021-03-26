@@ -9,13 +9,15 @@ namespace demo01
     class OrderDetails
     {
         String Address { get; set; }
+        DateTime deliverDate;
         public override string ToString()
         {
-            return Address;
+            return Address+" 预计"+deliverDate+"送到";
         }
         public OrderDetails(string address)
         {
             Address = address;
+            deliverDate = System.DateTime.Now.AddDays(7);
         }
 
         public override bool Equals(object obj)
