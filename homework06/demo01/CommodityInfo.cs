@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace demo01
 {
-    class CommodityInfo : IComparable
+    [Serializable]
+   public  class CommodityInfo : IComparable
     {
         public Int32 CommodityNo { get; set; }
         public String CommodityName { get; set; }
@@ -17,6 +18,10 @@ namespace demo01
             CommodityNo = commodityNo;
             CommodityName = commodityName;
             CommodityPrice = commodityPrice;
+        }
+
+        public CommodityInfo()
+        {
         }
 
         public int CompareTo(object obj)//实现默认InfoNo排序

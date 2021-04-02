@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace demo01
 {
-    class Order:IComparable
+    [Serializable]
+    public class Order:IComparable
     {
+        
         public Customer customer { get; set; }
 
         public Int32 OrderNo { get; set; }
-        public Double totalPrice 
+
+        public Double TotalPrice 
         { 
             get {
                 double sum=0;
@@ -20,7 +23,7 @@ namespace demo01
             }
         }
 
-        OrderDetails details;
+        public OrderDetails details { get; set; }
         public List<CommodityInfo> list = new List<CommodityInfo>();
 
         public Order(Customer customer, Int32 orderNo, OrderDetails details)
@@ -28,6 +31,10 @@ namespace demo01
             this.customer = customer;
             OrderNo = orderNo;
             this.details = details;
+        }
+
+        public Order()
+        {
         }
 
 
@@ -68,7 +75,7 @@ namespace demo01
         public override string ToString()
         {
             
-            return $" {customer} 订单{OrderNo} 配送{details} 总计{totalPrice}元";
+            return $" {customer} 订单{OrderNo} 配送{details} 总计{TotalPrice}元";
         }
 
         public override bool Equals(object obj)

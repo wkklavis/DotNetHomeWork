@@ -6,18 +6,24 @@ using System.Threading.Tasks;
 
 namespace demo01
 {
-    class OrderDetails
+    [Serializable]
+    public  class OrderDetails
     {
-        String Address { get; set; }
-        DateTime deliverDate;
+
+       public  String Address { get; set; }
+       public DateTime DeliverDate { get; set; }
         public override string ToString()
         {
-            return Address+" 预计"+deliverDate+"送到";
+            return Address+" 预计"+DeliverDate+"送到";
         }
         public OrderDetails(string address)
         {
             Address = address;
-            deliverDate = System.DateTime.Now.AddDays(7);
+            DeliverDate = System.DateTime.Now.AddDays(7);
+        }
+
+        public OrderDetails()
+        {
         }
 
         public override bool Equals(object obj)
