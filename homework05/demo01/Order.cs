@@ -8,9 +8,9 @@ namespace demo01
 {
     class Order:IComparable
     {
-        public Customer customer;
+        public Customer customer { get; set; }
 
-        public Int32 OrderNo;
+        public Int32 OrderNo { get; set; }
         public Double totalPrice
         {
             get
