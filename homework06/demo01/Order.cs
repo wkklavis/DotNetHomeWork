@@ -11,11 +11,10 @@ namespace demo01
         public Customer customer;
 
         public Int32 OrderNo;
-        public Double totalPrice
-        {
-            get
-            {
-                double sum = 0;
+        public Double totalPrice 
+        { 
+            get {
+                double sum=0;
                 list.ForEach(item => sum += item.CommodityPrice);
                 return sum;
             }
@@ -31,12 +30,12 @@ namespace demo01
             this.details = details;
         }
 
-
+        
         //对Order里面具体商品数据进行修改
         public void AddInfo(int no, String name, double price)
         {
             CommodityInfo info = new CommodityInfo(no, name, price);
-            list.ForEach(item => { if (item.Equals(info)) throw new ApplicationException("商品已存在"); });
+            list.ForEach(item => { if (item.Equals(info)) throw new ApplicationException("订单已存在"); });
             list.Add(info);
 
         }

@@ -16,25 +16,40 @@ namespace demo01
             else throw new ArgumentException("删除失败");
         }
         public List<Order> QueryOrder(Int32 orderNoNum) {
-            List<Order> queryList = (from order in orderList where orderNoNum == order.OrderNo select order).ToList();
+            List<Order> queryList = (from order 
+                                     in orderList 
+                                     where orderNoNum == order.OrderNo 
+                                     select order).ToList();
             
             return queryList;
         }
         public List<Order> QueryOrder(String commodityName)
         {
-            List<Order> queryList = (from order in orderList where order.list.Find(item=>item.CommodityName==commodityName)!=null orderby order.totalPrice  select order  ).ToList();
+            List<Order> queryList = (from order 
+                                     in orderList 
+                                     where order.list.Find(item=>item.CommodityName==commodityName)!=null 
+                                     orderby order.totalPrice  
+                                     select order  ).ToList();
             
             return queryList;
         }
         public List<Order> QueryOrder(Customer customer)
         {
-            List<Order> queryList = (from order in orderList where order.customer== customer orderby order.totalPrice select order).ToList();
+            List<Order> queryList = (from order 
+                                     in orderList 
+                                     where order.customer== customer 
+                                     orderby order.totalPrice 
+                                     select order).ToList();
             
             return queryList;
         }
         public List<Order> QueryOrder(double totalPrice)
         {
-            List<Order> queryList = (from order in orderList where order.totalPrice == totalPrice orderby order.totalPrice select order).ToList();
+            List<Order> queryList = (from order 
+                                     in orderList 
+                                     where order.totalPrice == totalPrice 
+                                     orderby order.totalPrice 
+                                     select order).ToList();
            
             return queryList;
         }
