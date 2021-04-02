@@ -30,7 +30,7 @@ namespace demo01
             service.AddOrder(order1);
             service.AddOrder(order2);
 
-            service.QueryOrder(123).ForEach(item=> Console.WriteLine(item));
+            Console.WriteLine(service.QueryOrder(123));
             Console.WriteLine("----------");
             service.QueryOrder("西瓜").ForEach(item=> Console.WriteLine(item));
 

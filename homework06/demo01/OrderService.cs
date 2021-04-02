@@ -60,7 +60,7 @@ namespace demo01
             return queryList;
         }
 
-
+        XmlSerializer xmlSerializer = new XmlSerializer(typeof(Order[]));
         //添加Export以及Import方法
         public void Export()
         {
