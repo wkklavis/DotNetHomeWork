@@ -76,12 +76,19 @@ namespace demo01.Tests
         [TestMethod()]
         public void ExportTest()
         {
-            
+            bool isChanged = false;
+            FileSystemWatcher watcher = new FileSystemWatcher(@"C:\Users\86188\Documents\mycode\C#\DotNetHomeWork\homework06\demo01Tests\bin\Debug");
+            watcher.Changed += new FileSystemEventHandler(
+                   delegate(object source, FileSystemEventArgs e){ isChanged = true; });
+            watcher.EnableRaisingEvents = true;
+
             OrderService service = new OrderService();
             service.Export("s.xml");
             Assert.AreEqual(File.ReadAllText("s.xml"),
                 "<?xml version=\"1.0\"?>\r\n<ArrayOfOrder xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />");
-            //.html触发异常。".xml"
+            Assert.AreEqual(isChanged, true);//判断文件是否被更改
+
+            //".html"触发异常。".xml"
             //windows默认换行\r\n
         }
 
