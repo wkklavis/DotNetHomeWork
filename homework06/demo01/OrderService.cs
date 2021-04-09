@@ -89,7 +89,7 @@ namespace demo01
             {
                 Order[] orders = (Order[])xmlSerializer.Deserialize(fs);
                 orderList.Clear();
-                Array.ForEach(orders,order => { if (!orderList.Contains(order)) orderList.Add(order); });
+                Array.ForEach(orders,order=>orderList.Add(order));
                 return true;
             }
         }
