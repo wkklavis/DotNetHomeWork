@@ -12,7 +12,7 @@ namespace demo01
    public class OrderService
     {
 
-        public List<Order> orderList = new List<Order>();
+        public List<Order> orderList { get; set; } = new List<Order>();
         public bool AddOrder(Order order)
         {
             orderList.ForEach(item => { if (order.Equals(item)) throw new ApplicationException("订单已存在"); });

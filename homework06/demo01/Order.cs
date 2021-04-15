@@ -7,24 +7,25 @@ using System.Threading.Tasks;
 namespace demo01
 {
     [Serializable]
-    public class Order:IComparable
+    public class Order : IComparable
     {
-        
+
         public Customer customer { get; set; }
 
         public Int32 OrderNo { get; set; }
 
-        public Double TotalPrice 
-        { 
-            get {
-                double sum=0;
+        public Double TotalPrice
+        {
+            get
+            {
+                double sum = 0;
                 list.ForEach(item => sum += item.CommodityPrice);
                 return sum;
             }
         }
 
         public OrderDetails details { get; set; }
-        public List<CommodityInfo> list = new List<CommodityInfo>();
+        public List<CommodityInfo> list { get; set; } = new List<CommodityInfo>();
 
         public Order(Customer customer, Int32 orderNo, OrderDetails details)
         {
@@ -63,7 +64,7 @@ namespace demo01
             if (list.Remove(list.Find(info => info.CommodityNo == no))) Console.WriteLine("删除成功");
             else throw new ArgumentException("删除失败");
         }
-        
+
 
         //Order比较
         public int CompareTo(object obj)
@@ -74,7 +75,7 @@ namespace demo01
         }
         public override string ToString()
         {
-            
+
             return $" {customer} 订单{OrderNo} 配送{details} 总计{TotalPrice}元";
         }
 
@@ -95,5 +96,5 @@ namespace demo01
     }
 
 
-    
+
 }
