@@ -79,8 +79,7 @@ namespace demo
             form.isAdd = false;
             form.Biding();
             
-            form.ShowDialog(); //NOTE this! must be ShowDialog()  NOT Show()!
-            if (form.DialogResult == DialogResult.OK) { this.Update(); }
+            form.Show();
         }
 
         private void queryButton_Click(object sender, EventArgs e)

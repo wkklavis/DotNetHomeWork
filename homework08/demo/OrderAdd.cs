@@ -15,15 +15,12 @@ namespace demo
     {
         
         public bool isAdd = true;
-
         public int Count { get; set; }
 
         public Order order { get; set; }
         public OrderAdd()
         {
             InitializeComponent();
-            
-
         }
         public void Biding()
         {
@@ -31,11 +28,12 @@ namespace demo
             ageTextBox.DataBindings.Add("Text", this.order.customer, "Age");
             sexTextBox.DataBindings.Add("Text", this.order.customer, "Sex");
             addressTextBox.DataBindings.Add("Text", this.order.details, "Address");
-            commodityTextBox.DataBindings.Add("Text", this.order.list.First(), "CommodityName");             
-          
-
+            commodityTextBox.DataBindings.Add("Text", this.order.list.First(), "CommodityName");
+            //quantityTextBox.DataBindings.Add("Text", this.order.list, "Count");
+            
         }
 
+        int price = 30;
         private void save_Click(object sender, EventArgs e)
         {
             if (isAdd == true)
@@ -55,9 +53,13 @@ namespace demo
                 
                 order = new Order(new Customer(name, age, sex), Count+1, new OrderDetails(address));
                 for (; quantity > 0; quantity--)
-                    order.AddInfo(1, commodityName, 30);
+                    order.AddInfo(1, commodityName, price--);
                 
              }
+            else
+            {
+
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
             
