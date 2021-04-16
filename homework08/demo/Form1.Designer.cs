@@ -44,19 +44,19 @@ namespace demo
             this.commodityPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.detailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.addCustomButton = new System.Windows.Forms.Button();
-            this.exportTextBox = new System.Windows.Forms.TextBox();
-            this.importTextBox = new System.Windows.Forms.TextBox();
-            this.exportButton = new System.Windows.Forms.Button();
-            this.importButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.queryTextBox = new System.Windows.Forms.TextBox();
             this.queryButton = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.importButton = new System.Windows.Forms.Button();
+            this.exportButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailBindingSource)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -74,10 +74,10 @@ namespace demo
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(736, 262);
+            this.dataGridView1.Size = new System.Drawing.Size(786, 258);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView1_CellStateChanged);
             // 
             // customerDataGridViewTextBoxColumn
             // 
@@ -120,18 +120,18 @@ namespace demo
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(0, 80);
+            this.panel1.Location = new System.Drawing.Point(0, 100);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(736, 262);
+            this.panel1.Size = new System.Drawing.Size(786, 258);
             this.panel1.TabIndex = 1;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.dataGridView2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 348);
+            this.panel2.Location = new System.Drawing.Point(0, 380);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(735, 137);
+            this.panel2.Size = new System.Drawing.Size(785, 137);
             this.panel2.TabIndex = 2;
             // 
             // dataGridView2
@@ -148,7 +148,7 @@ namespace demo
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 27;
-            this.dataGridView2.Size = new System.Drawing.Size(735, 137);
+            this.dataGridView2.Size = new System.Drawing.Size(785, 137);
             this.dataGridView2.TabIndex = 0;
             // 
             // commodityNoDataGridViewTextBoxColumn
@@ -181,7 +181,8 @@ namespace demo
             // 
             // addCustomButton
             // 
-            this.addCustomButton.Location = new System.Drawing.Point(12, 21);
+            this.addCustomButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.addCustomButton.Location = new System.Drawing.Point(3, 4);
             this.addCustomButton.Name = "addCustomButton";
             this.addCustomButton.Size = new System.Drawing.Size(75, 23);
             this.addCustomButton.TabIndex = 3;
@@ -189,43 +190,10 @@ namespace demo
             this.addCustomButton.UseVisualStyleBackColor = true;
             this.addCustomButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // exportTextBox
-            // 
-            this.exportTextBox.Location = new System.Drawing.Point(528, 1);
-            this.exportTextBox.Name = "exportTextBox";
-            this.exportTextBox.Size = new System.Drawing.Size(100, 25);
-            this.exportTextBox.TabIndex = 6;
-            // 
-            // importTextBox
-            // 
-            this.importTextBox.Location = new System.Drawing.Point(528, 32);
-            this.importTextBox.Name = "importTextBox";
-            this.importTextBox.Size = new System.Drawing.Size(100, 25);
-            this.importTextBox.TabIndex = 7;
-            // 
-            // exportButton
-            // 
-            this.exportButton.Location = new System.Drawing.Point(648, 1);
-            this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(75, 23);
-            this.exportButton.TabIndex = 8;
-            this.exportButton.Text = "导出";
-            this.exportButton.UseVisualStyleBackColor = true;
-            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
-            // 
-            // importButton
-            // 
-            this.importButton.Location = new System.Drawing.Point(648, 32);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(75, 23);
-            this.importButton.TabIndex = 9;
-            this.importButton.Text = "导入";
-            this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(109, 20);
+            this.deleteButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.deleteButton.Location = new System.Drawing.Point(84, 4);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(75, 23);
             this.deleteButton.TabIndex = 10;
@@ -235,14 +203,16 @@ namespace demo
             // 
             // queryTextBox
             // 
-            this.queryTextBox.Location = new System.Drawing.Point(213, 21);
+            this.queryTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.queryTextBox.Location = new System.Drawing.Point(165, 3);
             this.queryTextBox.Name = "queryTextBox";
             this.queryTextBox.Size = new System.Drawing.Size(100, 25);
             this.queryTextBox.TabIndex = 11;
             // 
             // queryButton
             // 
-            this.queryButton.Location = new System.Drawing.Point(332, 23);
+            this.queryButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.queryButton.Location = new System.Drawing.Point(271, 4);
             this.queryButton.Name = "queryButton";
             this.queryButton.Size = new System.Drawing.Size(75, 23);
             this.queryButton.TabIndex = 12;
@@ -250,19 +220,47 @@ namespace demo
             this.queryButton.UseVisualStyleBackColor = true;
             this.queryButton.Click += new System.EventHandler(this.queryButton_Click);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.addCustomButton);
+            this.flowLayoutPanel1.Controls.Add(this.deleteButton);
+            this.flowLayoutPanel1.Controls.Add(this.queryTextBox);
+            this.flowLayoutPanel1.Controls.Add(this.queryButton);
+            this.flowLayoutPanel1.Controls.Add(this.exportButton);
+            this.flowLayoutPanel1.Controls.Add(this.importButton);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 1);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(382, 101);
+            this.flowLayoutPanel1.TabIndex = 13;
+            // 
+            // importButton
+            // 
+            this.importButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.importButton.Location = new System.Drawing.Point(84, 34);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.TabIndex = 9;
+            this.importButton.Text = "导入";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
+            // exportButton
+            // 
+            this.exportButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.exportButton.Location = new System.Drawing.Point(3, 34);
+            this.exportButton.Name = "exportButton";
+            this.exportButton.Size = new System.Drawing.Size(75, 23);
+            this.exportButton.TabIndex = 8;
+            this.exportButton.Text = "导出";
+            this.exportButton.UseVisualStyleBackColor = true;
+            this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 485);
-            this.Controls.Add(this.queryButton);
-            this.Controls.Add(this.queryTextBox);
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.importButton);
-            this.Controls.Add(this.exportButton);
-            this.Controls.Add(this.importTextBox);
-            this.Controls.Add(this.exportTextBox);
-            this.Controls.Add(this.addCustomButton);
+            this.ClientSize = new System.Drawing.Size(785, 517);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -273,8 +271,9 @@ namespace demo
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailBindingSource)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -294,13 +293,12 @@ namespace demo
         private System.Windows.Forms.DataGridViewTextBoxColumn commodityNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commodityPriceDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button addCustomButton;
-        private System.Windows.Forms.TextBox exportTextBox;
-        private System.Windows.Forms.TextBox importTextBox;
-        private System.Windows.Forms.Button exportButton;
-        private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.TextBox queryTextBox;
         private System.Windows.Forms.Button queryButton;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.Button exportButton;
     }
 }
 

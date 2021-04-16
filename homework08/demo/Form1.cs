@@ -18,8 +18,8 @@ namespace demo
         public Form1()
         {
             InitializeComponent();
-            orderBindingSource.DataSource = service;
-            orderBindingSource.DataMember = "orderList";
+            orderBindingSource.DataSource = service.orderList;
+            //orderBindingSource.DataMember = "orderList";
 
             detailBindingSource.DataSource = orderBindingSource;
             detailBindingSource.DataMember = "list";
@@ -28,27 +28,38 @@ namespace demo
         private void addButton_Click(object sender, EventArgs e)
         {
             OrderAdd form = new OrderAdd();
-            form.Form1 = this;
+            form.Count = this.service.orderList.Count;
             form.isAdd = true;
-            form.Show();
+            form.ShowDialog(); //NOTE this! must be ShowDialog()  NOT Show()!
+            if (form.DialogResult == DialogResult.OK) {service.AddOrder(form.order); this.Update(); }
         }
         public void Update()
         {
-            orderBindingSource.ResetBindings(true);
-            detailBindingSource.ResetBindings(true);
+            orderBindingSource.ResetBindings(false);
+            detailBindingSource.ResetBindings(false);
         }
 
         private void exportButton_Click(object sender, EventArgs e)
         {
-            service.Export(exportTextBox.Text);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                service.Export(saveFileDialog.FileName);
+                MessageBox.Show("导出成功");
+            }
         }
 
 
-
+        
         private void importButton_Click(object sender, EventArgs e)
         {
-            service.Import(importTextBox.Text);
-            Update();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                service.Import(openFileDialog.FileName);
+                Update();
+            }
+            
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -59,26 +70,44 @@ namespace demo
             Update();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             OrderAdd form = new OrderAdd();
-            form.Form1 = this;
+            
             int orderNo = Int32.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());            
             form.order = service.QueryOrder(orderNo);
             form.isAdd = false;
             form.Biding();
-            form.Show();
-
+            
+            form.ShowDialog(); //NOTE this! must be ShowDialog()  NOT Show()!
+            if (form.DialogResult == DialogResult.OK) { this.Update(); }
         }
 
         private void queryButton_Click(object sender, EventArgs e)
         {
+            if (queryTextBox.Text != "") 
+            {
+                if (Int32.TryParse(queryTextBox.Text, out int i))
+                {
+                    orderBindingSource.DataSource = service.orderList.Where(o => o.OrderNo == i);
+                }
+                else
+                {
+                    orderBindingSource.DataSource =service.orderList.Where(o => o.customer.Name == queryTextBox.Text);
+                }
+            }
+            else { orderBindingSource.DataSource = service.orderList; }
+        }
 
+        private void dataGridView1_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.Cell.Selected)
+            {
+                if (!dataGridView1.Rows[e.Cell.RowIndex].Selected)
+                {
+                    dataGridView1.Rows[e.Cell.RowIndex].Selected = true;
+                }
+            }
         }
     }
 }

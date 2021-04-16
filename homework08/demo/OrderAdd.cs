@@ -13,10 +13,10 @@ namespace demo
 {
     public partial class OrderAdd : Form
     {
-        int no = 1;
+        
         public bool isAdd = true;
 
-        public Form1 Form1 { get; set; }
+        public int Count { get; set; }
 
         public Order order { get; set; }
         public OrderAdd()
@@ -53,14 +53,13 @@ namespace demo
                 String commodityName = commodityTextBox.Text;
                 int quantity = Int32.Parse(quantityTextBox.Text);
                 
-                    order = new Order(new Customer(name, age, sex), no++, new OrderDetails(address));
-                    for (; quantity > 0; quantity--)
-                        order.AddInfo(1, commodityName, 30);
-                    Form1.service.AddOrder(order);
-             }
+                order = new Order(new Customer(name, age, sex), Count+1, new OrderDetails(address));
+                for (; quantity > 0; quantity--)
+                    order.AddInfo(1, commodityName, 30);
                 
-                Form1.Update();
-                this.Close();
+             }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
             
         }
     }
