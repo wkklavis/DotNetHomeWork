@@ -58,7 +58,7 @@ namespace Demo
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Size = new System.Drawing.Size(1001, 500);
-            this.splitContainer1.SplitterDistance = 681;
+            this.splitContainer1.SplitterDistance = 758;
             this.splitContainer1.TabIndex = 1;
             // 
             // groupBox1
@@ -67,7 +67,7 @@ namespace Demo
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(681, 500);
+            this.groupBox1.Size = new System.Drawing.Size(758, 500);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "已经爬取URL";
@@ -79,7 +79,7 @@ namespace Demo
             this.urlListView.HideSelection = false;
             this.urlListView.Location = new System.Drawing.Point(3, 21);
             this.urlListView.Name = "urlListView";
-            this.urlListView.Size = new System.Drawing.Size(675, 476);
+            this.urlListView.Size = new System.Drawing.Size(752, 476);
             this.urlListView.TabIndex = 0;
             this.urlListView.TileSize = new System.Drawing.Size(400, 45);
             this.urlListView.UseCompatibleStateImageBehavior = false;
@@ -90,7 +90,7 @@ namespace Demo
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(316, 500);
+            this.groupBox2.Size = new System.Drawing.Size(239, 500);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "错误URL信息";
@@ -101,7 +101,7 @@ namespace Demo
             this.exceptionListView.HideSelection = false;
             this.exceptionListView.Location = new System.Drawing.Point(3, 21);
             this.exceptionListView.Name = "exceptionListView";
-            this.exceptionListView.Size = new System.Drawing.Size(310, 476);
+            this.exceptionListView.Size = new System.Drawing.Size(233, 476);
             this.exceptionListView.TabIndex = 0;
             this.exceptionListView.UseCompatibleStateImageBehavior = false;
             // 

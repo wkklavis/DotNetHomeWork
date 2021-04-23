@@ -24,11 +24,13 @@ namespace Demo
         public Hashtable urls = new Hashtable();
         public int count = 0;
 
+       
         Stopwatch stopwatch = new Stopwatch();
 
         public void Crawl()
         {
-            stopwatch.Start();
+            urlListView.BeginUpdate();
+            
 
             urlListView.Items.Add(new ListViewItem("开始爬行了.... \r\n"));
             while (true)
@@ -40,26 +42,27 @@ namespace Demo
                     current = url;
                 }
 
-                if (current == null || count > 10) 
+                if (current == null || count > 20) 
                 {
-                    stopwatch.Stop();
+                    
+                    
                     Console.WriteLine($"持续时间：{stopwatch.ElapsedMilliseconds}");
+                    urlListView.EndUpdate();
                     break; 
                 }
+
                 urlListView.Items.Add(new ListViewItem("爬行" + current + "页面!"));
                 string html = DownLoad(current); // 下载
                 urls[current] = true;
                 count++;
 
-                Parse(html,current);//解析,并加入新的链接
-
+                Parse(html, current);//解析,并加入新的链接 
+ 
             }
         }
 
-        
-
         public string DownLoad(string url)
-        {
+        {         
             try
             {
                 WebClient webClient = new WebClient();
@@ -74,11 +77,14 @@ namespace Demo
                 exceptionListView.Items.Add(new ListViewItem(ex.Message+""));
                 return "";
             }
+            
         }
 
         private void Parse(string html,string current)//此时HTML为
         {
-            /*            string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
+            stopwatch.Start();
+            /*
+                        string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
                         MatchCollection matches = new Regex(strRef).Matches(html);
                         foreach (Match match in matches)//每一个超链接
                         {
@@ -88,9 +94,8 @@ namespace Demo
 
                             string completeUrl = Convert(strRef, current);//转换成完整格式
                             if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
+                        }*/
 
-                        }
-            */
 
             string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
             Parallel.ForEach(new Regex(strRef).Matches(html).Cast<Match>(), (Match match) =>  //每一个超链接
@@ -98,20 +103,29 @@ namespace Demo
                 strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
                           .Trim('"', '\"', '#', '>');
                 if (strRef.Length == 0) return;
-
                 string completeUrl = Convert(strRef, current);//转换成完整格式
-                          if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
+                if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
 
-                      });
+            });
+
+            stopwatch.Stop();
+            
         }
 
         private string Convert(string url,string current)
         {
-            if (url.StartsWith("https")) return url;//完整格式不用处理
+
+            if (url.Contains("://")) return url;//完整格式不用处理
+            if (url.StartsWith("http")) return "";
+            if (url.StartsWith("www")) return "https://"+url;
+
+
             if (current.EndsWith("/")) current= current.Substring(0, current.Length - 1);
+            if (Check(current)) return "";
+
             if (url.StartsWith("//"))
             {
-                return "http:" + url;
+                return "https:" + url;
             }
 
             if(url.StartsWith("/"))
@@ -135,7 +149,7 @@ namespace Demo
 
         private bool Check(string html)//判断是否为html/aspx/jsp
         {
-            return Regex.IsMatch(html, @".*\.jsp?$") || Regex.IsMatch(html, @".*\.html?$") || Regex.IsMatch(html, @".*\.aspx?$");
+            return Regex.IsMatch(html, @".*\.jsp$") || Regex.IsMatch(html, @".*\.html$") || Regex.IsMatch(html, @".*\.aspx$");
         }
 
 
