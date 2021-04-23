@@ -24,14 +24,9 @@ namespace Demo
         public Hashtable urls = new Hashtable();
         public int count = 0;
 
-       
-        Stopwatch stopwatch = new Stopwatch();
-
         public void Crawl()
         {
-            urlListView.BeginUpdate();
-            
-
+           
             urlListView.Items.Add(new ListViewItem("开始爬行了.... \r\n"));
             while (true)
             {
@@ -42,12 +37,9 @@ namespace Demo
                     current = url;
                 }
 
-                if (current == null || count > 20) 
+                if (current == null || count > 10) 
                 {
-                    
-                    
-                    Console.WriteLine($"持续时间：{stopwatch.ElapsedMilliseconds}");
-                    urlListView.EndUpdate();
+                  
                     break; 
                 }
 
@@ -82,33 +74,19 @@ namespace Demo
 
         private void Parse(string html,string current)//此时HTML为
         {
-            stopwatch.Start();
-            /*
-                        string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
-                        MatchCollection matches = new Regex(strRef).Matches(html);
-                        foreach (Match match in matches)//每一个超链接
-                        {
-                            strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
-                                      .Trim('"', '\"', '#', '>');
-                            if (strRef.Length == 0) continue;
-
-                            string completeUrl = Convert(strRef, current);//转换成完整格式
-                            if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
-                        }*/
-
-
+           
             string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
-            Parallel.ForEach(new Regex(strRef).Matches(html).Cast<Match>(), (Match match) =>  //每一个超链接
+            MatchCollection matches = new Regex(strRef).Matches(html);
+            foreach (Match match in matches)//每一个超链接
             {
                 strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
                           .Trim('"', '\"', '#', '>');
-                if (strRef.Length == 0) return;
+                if (strRef.Length == 0) continue;
+
                 string completeUrl = Convert(strRef, current);//转换成完整格式
                 if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
-
-            });
-
-            stopwatch.Stop();
+            }
+            
             
         }
 
