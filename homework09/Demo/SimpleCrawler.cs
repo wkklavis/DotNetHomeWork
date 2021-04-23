@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,11 +17,6 @@ namespace Demo
 {
     class SimpleCrawler// : INotifyPropertyChanged双向数据绑定
     {
-        /*//双向数据绑定
-        private string urlText = "";
-        private string exceptionText = "";
-        public string UrlText { get { return urlText; } set { urlText = value; NotifyPropertyChanged(() => UrlText); } } 
-        public string ExceptionText { get { return exceptionText; } set { exceptionText = value; NotifyPropertyChanged(() => ExceptionText); } }*/
 
         public System.Windows.Forms.ListView urlListView ;
         public System.Windows.Forms.ListView exceptionListView;
@@ -28,20 +24,12 @@ namespace Demo
         public Hashtable urls = new Hashtable();
         public int count = 0;
 
-      
-
-        /*static void Main(string[] args)
-        {
-        SimpleCrawler myCrawler = new SimpleCrawler();
-        string startUrl = "http://www.cnblogs.com/dstang2000/";
-        if (args.Length >= 1) startUrl = args[0];
-        myCrawler.urls.Add(startUrl, false);//加入初始页面
-        new Thread(myCrawler.Crawl).Start();
-        }*/
+        Stopwatch stopwatch = new Stopwatch();
 
         public void Crawl()
         {
-            
+            stopwatch.Start();
+
             urlListView.Items.Add(new ListViewItem("开始爬行了.... \r\n"));
             while (true)
             {
@@ -54,19 +42,17 @@ namespace Demo
 
                 if (current == null || count > 10) 
                 {
+                    stopwatch.Stop();
+                    Console.WriteLine($"持续时间：{stopwatch.ElapsedMilliseconds}");
                     break; 
                 }
                 urlListView.Items.Add(new ListViewItem("爬行" + current + "页面!"));
-
-
-                
                 string html = DownLoad(current); // 下载
                 urls[current] = true;
                 count++;
 
                 Parse(html,current);//解析,并加入新的链接
 
-               // urlListView.Items.Add("爬行结束");
             }
         }
 
@@ -92,18 +78,31 @@ namespace Demo
 
         private void Parse(string html,string current)//此时HTML为
         {
+            /*            string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
+                        MatchCollection matches = new Regex(strRef).Matches(html);
+                        foreach (Match match in matches)//每一个超链接
+                        {
+                            strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
+                                      .Trim('"', '\"', '#', '>');
+                            if (strRef.Length == 0) continue;
+
+                            string completeUrl = Convert(strRef, current);//转换成完整格式
+                            if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
+
+                        }
+            */
+
             string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
-            MatchCollection matches = new Regex(strRef).Matches(html);
-            foreach (Match match in matches)//每一个超链接
+            Parallel.ForEach(new Regex(strRef).Matches(html).Cast<Match>(), (Match match) =>  //每一个超链接
             {
                 strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
                           .Trim('"', '\"', '#', '>');
-                if (strRef.Length == 0) continue;
+                if (strRef.Length == 0) return;
 
-                string completeUrl = Convert(strRef,current);//转换成完整格式
-                if (Check(strRef)&&urls[strRef] == null) urls[strRef] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
+                string completeUrl = Convert(strRef, current);//转换成完整格式
+                          if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
 
-            }
+                      });
         }
 
         private string Convert(string url,string current)
@@ -136,22 +135,9 @@ namespace Demo
 
         private bool Check(string html)//判断是否为html/aspx/jsp
         {
-            return Regex.IsMatch(html, @".*\.jsp") || Regex.IsMatch(html, @".*\.html") || Regex.IsMatch(html, @".*\.aspx");
+            return Regex.IsMatch(html, @".*\.jsp?$") || Regex.IsMatch(html, @".*\.html?$") || Regex.IsMatch(html, @".*\.aspx?$");
         }
 
 
-        /*  双向数据绑定
-          public event PropertyChangedEventHandler PropertyChanged;
-          public void NotifyPropertyChanged<T>(Expression<Func<T>> property)
-          {
-              if (PropertyChanged == null)
-                  return;
-
-              var memberExpression = property.Body as MemberExpression;
-              if (memberExpression == null)
-                  return;
-
-              PropertyChanged.Invoke(this, new PropertyChangedEventArgs(memberExpression.Member.Name));
-          }*/
     }
 }
