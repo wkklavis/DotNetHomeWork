@@ -30,10 +30,10 @@ namespace Demo
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.urlInfotextBox = new System.Windows.Forms.TextBox();
-            this.exceptionTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.urlListView = new System.Windows.Forms.ListView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.exceptionListView = new System.Windows.Forms.ListView();
             this.urlTextBox = new System.Windows.Forms.TextBox();
             this.crawlerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -47,7 +47,7 @@ namespace Demo
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 43);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 79);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -57,49 +57,53 @@ namespace Demo
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 407);
-            this.splitContainer1.SplitterDistance = 509;
+            this.splitContainer1.Size = new System.Drawing.Size(1001, 500);
+            this.splitContainer1.SplitterDistance = 681;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // urlInfotextBox
-            // 
-            this.urlInfotextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.urlInfotextBox.Location = new System.Drawing.Point(3, 21);
-            this.urlInfotextBox.Multiline = true;
-            this.urlInfotextBox.Name = "urlInfotextBox";
-            this.urlInfotextBox.Size = new System.Drawing.Size(503, 383);
-            this.urlInfotextBox.TabIndex = 0;
-            // 
-            // exceptionTextBox
-            // 
-            this.exceptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.exceptionTextBox.Location = new System.Drawing.Point(3, 21);
-            this.exceptionTextBox.Multiline = true;
-            this.exceptionTextBox.Name = "exceptionTextBox";
-            this.exceptionTextBox.Size = new System.Drawing.Size(281, 383);
-            this.exceptionTextBox.TabIndex = 0;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.urlInfotextBox);
+            this.groupBox1.Controls.Add(this.urlListView);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(509, 407);
+            this.groupBox1.Size = new System.Drawing.Size(681, 500);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "已经爬取URL";
             // 
+            // urlListView
+            // 
+            this.urlListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.urlListView.Font = new System.Drawing.Font("仿宋", 12.10084F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.urlListView.HideSelection = false;
+            this.urlListView.Location = new System.Drawing.Point(3, 21);
+            this.urlListView.Name = "urlListView";
+            this.urlListView.Size = new System.Drawing.Size(675, 476);
+            this.urlListView.TabIndex = 0;
+            this.urlListView.TileSize = new System.Drawing.Size(400, 45);
+            this.urlListView.UseCompatibleStateImageBehavior = false;
+            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.exceptionTextBox);
+            this.groupBox2.Controls.Add(this.exceptionListView);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 407);
+            this.groupBox2.Size = new System.Drawing.Size(316, 500);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "错误URL信息";
+            // 
+            // exceptionListView
+            // 
+            this.exceptionListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.exceptionListView.HideSelection = false;
+            this.exceptionListView.Location = new System.Drawing.Point(3, 21);
+            this.exceptionListView.Name = "exceptionListView";
+            this.exceptionListView.Size = new System.Drawing.Size(310, 476);
+            this.exceptionListView.TabIndex = 0;
+            this.exceptionListView.UseCompatibleStateImageBehavior = false;
             // 
             // urlTextBox
             // 
@@ -122,7 +126,7 @@ namespace Demo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1001, 579);
             this.Controls.Add(this.crawlerButton);
             this.Controls.Add(this.urlTextBox);
             this.Controls.Add(this.splitContainer1);
@@ -133,9 +137,7 @@ namespace Demo
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,11 +146,11 @@ namespace Demo
         #endregion
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox urlInfotextBox;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox exceptionTextBox;
         private System.Windows.Forms.TextBox urlTextBox;
         private System.Windows.Forms.Button crawlerButton;
+        private System.Windows.Forms.ListView urlListView;
+        private System.Windows.Forms.ListView exceptionListView;
     }
 }
 

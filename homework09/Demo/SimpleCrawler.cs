@@ -10,19 +10,20 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Demo
 {
     class SimpleCrawler// : INotifyPropertyChanged双向数据绑定
     {
-        /*双向数据绑定
+        /*//双向数据绑定
         private string urlText = "";
         private string exceptionText = "";
         public string UrlText { get { return urlText; } set { urlText = value; NotifyPropertyChanged(() => UrlText); } } 
         public string ExceptionText { get { return exceptionText; } set { exceptionText = value; NotifyPropertyChanged(() => ExceptionText); } }*/
-        
-        public System.Windows.Forms.TextBox urlInfotextBox;
-        public System.Windows.Forms.TextBox exceptionTextBox;
+
+        public System.Windows.Forms.ListView urlListView ;
+        public System.Windows.Forms.ListView exceptionListView;
 
         public Hashtable urls = new Hashtable();
         public int count = 0;
@@ -40,7 +41,8 @@ namespace Demo
 
         public void Crawl()
         {
-            urlInfotextBox.Text += "开始爬行了.... \r\n";
+            
+            urlListView.Items.Add(new ListViewItem("开始爬行了.... \r\n"));
             while (true)
             {
                 string current = null;
@@ -50,15 +52,21 @@ namespace Demo
                     current = url;
                 }
 
-                if (current == null || count > 10) break;
-                urlInfotextBox.Text += "爬行" + current + "页面!\r\n";
+                if (current == null || count > 10) 
+                {
+                    break; 
+                }
+                urlListView.Items.Add(new ListViewItem("爬行" + current + "页面!"));
+
+
+                
                 string html = DownLoad(current); // 下载
                 urls[current] = true;
                 count++;
 
                 Parse(html,current);//解析,并加入新的链接
 
-                urlInfotextBox.Text += "爬行结束\r\n";
+               // urlListView.Items.Add("爬行结束");
             }
         }
 
@@ -77,7 +85,7 @@ namespace Demo
             }
             catch (Exception ex)
             {
-                exceptionTextBox.Text+=ex.Message+"\r\n";
+                exceptionListView.Items.Add(new ListViewItem(ex.Message+""));
                 return "";
             }
         }
