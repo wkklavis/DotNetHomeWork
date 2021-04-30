@@ -17,9 +17,8 @@ namespace Demo
 {
     class SimpleCrawler// : INotifyPropertyChanged双向数据绑定
     {
-
-        public System.Windows.Forms.ListView urlListView ;
-        public System.Windows.Forms.ListView exceptionListView;
+        public event Action<SimpleCrawler, string> GetUrl;
+        public event Action<SimpleCrawler, string> GetException;
 
         public Hashtable urls = new Hashtable();
         public int count = 0;
@@ -29,10 +28,10 @@ namespace Demo
 
         public void Crawl()
         {
-            urlListView.BeginUpdate();
-            
 
-            urlListView.Items.Add(new ListViewItem("开始爬行了.... \r\n"));
+
+
+            GetUrl(this, "开始爬行了....");
             while (true)
             {
                 string current = null;
@@ -47,11 +46,11 @@ namespace Demo
                     
                     
                     Console.WriteLine($"持续时间：{stopwatch.ElapsedMilliseconds}");
-                    urlListView.EndUpdate();
+                    
                     break; 
                 }
 
-                urlListView.Items.Add(new ListViewItem("爬行" + current + "页面!"));
+                GetUrl(this, "爬行" + current + "页面!");
                 string html = DownLoad(current); // 下载
                 urls[current] = true;
                 count++;
@@ -74,7 +73,7 @@ namespace Demo
             }
             catch (Exception ex)
             {
-                exceptionListView.Items.Add(new ListViewItem(ex.Message+""));
+                GetException(this, ex.Message);
                 return "";
             }
             
