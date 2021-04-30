@@ -15,19 +15,19 @@ using System.Windows.Forms;
 
 namespace Demo
 {
-    class SimpleCrawler// : INotifyPropertyChanged双向数据绑定
+    class SimpleCrawler
     {
 
-        public System.Windows.Forms.ListView urlListView ;
-        public System.Windows.Forms.ListView exceptionListView;
+       
+        public event Action<SimpleCrawler, string> GetUrl;
+        public event Action<SimpleCrawler, string> GetException;
 
         public Hashtable urls = new Hashtable();
         public int count = 0;
 
         public void Crawl()
         {
-           
-            urlListView.Items.Add(new ListViewItem("开始爬行了.... \r\n"));
+            GetUrl(this, "开始爬行了....");
             while (true)
             {
                 string current = null;
@@ -38,19 +38,18 @@ namespace Demo
                 }
 
                 if (current == null || count > 10) 
-                {
-                  
+                {                 
                     break; 
                 }
-
-                urlListView.Items.Add(new ListViewItem("爬行" + current + "页面!"));
+                GetUrl(this, "爬行" + current + "页面!");
                 string html = DownLoad(current); // 下载
                 urls[current] = true;
                 count++;
 
                 Parse(html, current);//解析,并加入新的链接 
- 
             }
+
+
         }
 
         public string DownLoad(string url)
@@ -66,10 +65,10 @@ namespace Demo
             }
             catch (Exception ex)
             {
-                exceptionListView.Items.Add(new ListViewItem(ex.Message+""));
+                GetException(this, ex.Message);
+                
                 return "";
-            }
-            
+            }            
         }
 
         private void Parse(string html,string current)//此时HTML为
@@ -85,9 +84,7 @@ namespace Demo
 
                 string completeUrl = Convert(strRef, current);//转换成完整格式
                 if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
-            }
-            
-            
+            }           
         }
 
         private string Convert(string url,string current)
@@ -127,7 +124,7 @@ namespace Demo
 
         private bool Check(string html)//判断是否为html/aspx/jsp
         {
-            return Regex.IsMatch(html, @".*\.jsp$") || Regex.IsMatch(html, @".*\.html$") || Regex.IsMatch(html, @".*\.aspx$");
+            return Regex.IsMatch(html, @".*\.jsp$") || Regex.IsMatch(html, @".*\.html?$") || Regex.IsMatch(html, @".*\.aspx$");
         }
 
 
