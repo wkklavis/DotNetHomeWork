@@ -23,17 +23,16 @@ namespace Demo
         public Hashtable urls = new Hashtable();
         public int count = 0;
 
-       
+        List<Task> tasks = new List<Task>();
         Stopwatch stopwatch = new Stopwatch();
 
         public void Crawl()
         {
-
-
-
+            stopwatch.Start();
             GetUrl(this, "开始爬行了....");
-            while (true)
+            while (tasks.Count<=15)
             {
+                //if (tasks.Count > 0) Task.WaitAll(tasks.ToArray());
                 string current = null;
                 foreach (string url in urls.Keys)
                 {
@@ -41,27 +40,31 @@ namespace Demo
                     current = url;
                 }
 
-                if (current == null || count > 20) 
-                {
-                    
-                    
-                    Console.WriteLine($"持续时间：{stopwatch.ElapsedMilliseconds}");
-                    
+                if (current == null || count > 15) 
+                {                       
                     break; 
                 }
 
-                GetUrl(this, "爬行" + current + "页面!");
-                string html = DownLoad(current); // 下载
-                urls[current] = true;
-                count++;
+                
+                //Task task = Task.Run(() =>
+               // {
+                    GetUrl(this, "爬行" + current + "页面!");
+                    string html = DownLoad(current); // 下载
+                    urls[current] = true;
+                    if(html!=null||html!=String.Empty)count++;                    
+                    Parse(html, current);//解析,并加入新的链接 
+               // });
+               // tasks.Add(task);
 
-                Parse(html, current);//解析,并加入新的链接 
- 
             }
+           // Task.WaitAll(tasks.ToArray());
+            stopwatch.Stop();
+            Console.WriteLine($"持续时间：{stopwatch.ElapsedMilliseconds}");
         }
 
         public string DownLoad(string url)
-        {         
+        {
+            lock (this) {       
             try
             {
                 WebClient webClient = new WebClient();
@@ -74,26 +77,27 @@ namespace Demo
             catch (Exception ex)
             {
                 GetException(this, ex.Message);
+                    GetUrl(this, url);
                 return "";
             }
-            
+            }
         }
 
         private void Parse(string html,string current)//此时HTML为
         {
-            stopwatch.Start();
-            /*
-                        string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
-                        MatchCollection matches = new Regex(strRef).Matches(html);
-                        foreach (Match match in matches)//每一个超链接
-                        {
-                            strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
-                                      .Trim('"', '\"', '#', '>');
-                            if (strRef.Length == 0) continue;
 
-                            string completeUrl = Convert(strRef, current);//转换成完整格式
-                            if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
-                        }*/
+
+            /*string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
+            MatchCollection matches = new Regex(strRef).Matches(html);
+            foreach (Match match in matches)//每一个超链接
+            {
+                strRef = match.Value.Substring(match.Value.IndexOf('=') + 1)
+                          .Trim('"', '\"', '#', '>');
+                if (strRef.Length == 0) continue;
+
+                string completeUrl = Convert(strRef, current);//转换成完整格式
+                if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
+            }*/
 
 
             string strRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";//超链接
@@ -106,16 +110,13 @@ namespace Demo
                 if (Check(completeUrl) && urls[completeUrl] == null) urls[completeUrl] = false;//只有当爬取的是html/html/aspx/jsp等网页时，才解析并爬取下一级URL。
 
             });
-
-            stopwatch.Stop();
-            
         }
 
         private string Convert(string url,string current)
         {
-
+            if (url.StartsWith("http://")) return "";
             if (url.Contains("://")) return url;//完整格式不用处理
-            if (url.StartsWith("http")) return "";
+            
             if (url.StartsWith("www")) return "https://"+url;
 
 
@@ -140,8 +141,6 @@ namespace Demo
                 int position = current.LastIndexOf("/");
                 return Convert(url.Substring(3),current.Substring(0,position));
             }
-
-
 
             return current + "/" + url;
         }
