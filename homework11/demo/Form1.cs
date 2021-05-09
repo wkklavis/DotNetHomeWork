@@ -68,20 +68,21 @@ namespace demo
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            using (var db = new OrderContext())
+                    { 
                 OrderAdd form = new OrderAdd();
                 int orderNo = Int32.Parse(dataGridView1.SelectedRows[0].Cells[1].Value.ToString());
                 form.Order = Service.QueryOrder(orderNo);
+                db.Entry(form.Order).State = System.Data.Entity.EntityState.Modified;
                 form.isAdd = false;
                 form.Biding();
                 form.ShowDialog(); //NOTE this! must be ShowDialog()  NOT Show()!
                 if (form.DialogResult == DialogResult.OK)
                 {
-                    using (var db = new OrderContext())
-                    { 
+                    
                         db.SaveChanges(); 
-                    }
-                }
+                }   
+             }   
         }
 
         private void queryButton_Click(object sender, EventArgs e)
