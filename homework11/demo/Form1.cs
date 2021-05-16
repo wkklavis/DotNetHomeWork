@@ -95,7 +95,7 @@ namespace demo
             {
                 using (var db = new OrderContext())
                 {
-                    orderBindingSource.DataSource = db.Orders.Include("Customer").Include("Commodities").ToList<Order>();
+                    orderBindingSource.DataSource = db.Orders.Include("Customer").Include("Commodities").Include("Details").ToList<Order>();
                 }
             }
         }
