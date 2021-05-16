@@ -32,7 +32,7 @@ namespace OrderApi.Controllers
         {
             return db.Orders.Include(o=>o.Customer)
                 .Include(o => o.Details)
-                //.Include(o => o.Commodities.ToList<CommodityInfo>())
+                .Include(o => o.Commodities)
                 .ToList();
         }
 

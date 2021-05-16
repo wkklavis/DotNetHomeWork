@@ -6,7 +6,7 @@ namespace OrderApi
     {
         public OrderContext(DbContextOptions<OrderContext> options) : base(options)
         {
-            
+            this.Database.EnsureCreated();
         }
         public DbSet<Order> Orders { get; set; }
         public DbSet<CommodityInfo> Commodities { get; set; }

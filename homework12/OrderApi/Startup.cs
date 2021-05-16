@@ -31,7 +31,9 @@ namespace OrderApi
         public void ConfigureServices(IServiceCollection services)
         {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 23));
-            var connectionString = "Server=localhost;DataBase=orderdb;User=root;Password=root;Charset=utf8";
+
+            //!!!!框架和homework11不同，重新建立数据库。往数据库添加数据
+            var connectionString = "Server=localhost;DataBase=orderdb1;User=root;Password=root;Charset=utf8";
             services.AddDbContextPool<OrderContext>(
                 options => options.UseMySql(connectionString,serverVersion)
                 .EnableSensitiveDataLogging() // These two calls are optional but help
