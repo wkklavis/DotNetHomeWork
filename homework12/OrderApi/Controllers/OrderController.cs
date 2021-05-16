@@ -44,7 +44,7 @@ namespace OrderApi.Controllers
         {
             var item = db.Orders.Include(o => o.Customer)
                 .Include(o => o.Details)
-                //.Include(o => o.Commodities)
+                .Include(o => o.Commodities)
                 .FirstOrDefault(o => o.OrderNo == orderNo);
             if (item == null) { return NotFound(); }
             else return item;

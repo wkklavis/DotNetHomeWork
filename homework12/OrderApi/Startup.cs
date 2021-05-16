@@ -33,6 +33,7 @@ namespace OrderApi
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 23));
 
             //!!!!框架和homework11不同，重新建立数据库。往数据库添加数据
+            //此数据库与11中的表名不同，整体逻辑不同，须新建，不可使用原数据库
             var connectionString = "Server=localhost;DataBase=orderdb1;User=root;Password=root;Charset=utf8";
             services.AddDbContextPool<OrderContext>(
                 options => options.UseMySql(connectionString,serverVersion)
