@@ -11,13 +11,10 @@ namespace OrderApi
     [Serializable]
    public class Customer
     {
-       public int CustomerId { get; set; } 
-       public String Name { get; set; }
-       public int Age { get; set; }
-       public String Sex { get; set; }
-
-        [ForeignKey("OrderNo")]
-        public int OrderId { get; set; }
+        public int CustomerId { get; set; }
+        public String Name { get; set; }
+        public int Age { get; set; }
+        public String Sex { get; set; }
         public Customer()
         {
         }

@@ -19,18 +19,33 @@ namespace OrderApi.Controllers
             this.db = db;
         }
 
+        [HttpGet("getCount")]
+        public int GetCount()
+        {
+            return db.Orders.Count();
+        }
+
         // GET: Order/getAll
         // 查询所有订单
         [HttpGet("getAll")]
         public ActionResult<List<Order>> Get()
         {
-            return db.Orders.ToList<Order>();
+            return db.Orders.Include(o=>o.Customer)
+                .Include(o => o.Details)
+                //.Include(o => o.Commodities.ToList<CommodityInfo>())
+                .ToList();
         }
+
+
+
 
         [HttpGet("{orderNo}")]
         public ActionResult<Order> GetOrder(int orderNo)
         {
-            var item = db.Orders.FirstOrDefault(o => o.OrderNo == orderNo);
+            var item = db.Orders.Include(o => o.Customer)
+                .Include(o => o.Details)
+                //.Include(o => o.Commodities)
+                .FirstOrDefault(o => o.OrderNo == orderNo);
             if (item == null) { return NotFound(); }
             else return item;
         }

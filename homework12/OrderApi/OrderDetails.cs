@@ -12,15 +12,9 @@ namespace OrderApi
     [Serializable]
     public  class OrderDetails
     {
-        [Key]
-        public int id { get; set; }
-
-        public  String Address { get; set; }
-        
+        public int OrderDetailsId { get; set; }
+        public String Address { get; set; }
         public DateTime DeliverDate { get; set; }
-
-        [ForeignKey("OrderNo")]
-        public int OrderId { get; set; }
 
         public override string ToString()
         {

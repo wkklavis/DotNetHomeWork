@@ -31,7 +31,7 @@ namespace OrderApi
         public void ConfigureServices(IServiceCollection services)
         {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 23));
-            var connectionString = "Server=localhost;DataBase=orderdb;User=root;Password=root";
+            var connectionString = "Server=localhost;DataBase=orderdb;User=root;Password=root;Charset=utf8";
             services.AddDbContextPool<OrderContext>(
                 options => options.UseMySql(connectionString,serverVersion)
                 .EnableSensitiveDataLogging() // These two calls are optional but help

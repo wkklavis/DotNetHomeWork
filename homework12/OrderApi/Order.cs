@@ -11,14 +11,14 @@ namespace OrderApi
     [Serializable]
     public class Order : IComparable
     {
-
         public Customer Customer { get; set; }
+        public int CustomerId { get; set; }
 
         [Key]
         public Int32 OrderNo { get; set; }
 
         public Double totalPrice;
-        
+
         public Double TotalPrice
         {
             get
@@ -27,7 +27,7 @@ namespace OrderApi
                 Commodities.ForEach(item => sum += item.CommodityPrice);
                 return sum;
             }
-            set 
+            set
             {
                 double sum = 0;
                 Commodities.ForEach(item => sum += item.CommodityPrice);
@@ -37,8 +37,8 @@ namespace OrderApi
 
 
         public OrderDetails Details { get; set; }
+        public int DetailsId { get; set; }
         public List<CommodityInfo> Commodities { get; set; } = new List<CommodityInfo>();
-
         public Order(Customer customer, Int32 orderNo, OrderDetails details)
         {
             this.Customer = customer;

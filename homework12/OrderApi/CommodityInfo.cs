@@ -16,9 +16,6 @@ namespace OrderApi
         public String CommodityName { get; set; }
         public Double CommodityPrice { get; set; }
 
-        [ForeignKey("OrderNo")]
-        public Order Order { get; set; }
-
         public CommodityInfo(Int32 commodityNo, string commodityName, double commodityPrice)
         {
             CommodityNo = commodityNo;
