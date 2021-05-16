@@ -9,7 +9,7 @@ namespace demo
     [Serializable]
     public  class OrderDetails
     {
-
+        public int OrderDetailsId { get; set; }
         public  String Address { get; set; }
         public DateTime DeliverDate { get; set; }
         public override string ToString()

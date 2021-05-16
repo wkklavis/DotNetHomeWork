@@ -27,7 +27,7 @@ namespace demo
         {
             using (var db = new OrderContext()) 
             {
-                var query = db.Orders.Include("Customer").Include("Commodities").FirstOrDefault(o => o.OrderNo == orderNoNum);
+                var query = db.Orders.Include("Customer").Include("Commodities").Include("Details").FirstOrDefault(o => o.OrderNo == orderNoNum);
                 if (query != null) 
                 {       
                     db.Orders.Remove(query); 
@@ -42,7 +42,7 @@ namespace demo
         {
             using (var db = new OrderContext())
             {
-               return db.Orders.Include("Customer").Include("Commodities").SingleOrDefault(o=>o.OrderNo==orderNoNum);
+               return db.Orders.Include("Customer").Include("Commodities").Include("Details").SingleOrDefault(o=>o.OrderNo==orderNoNum);
                 
             }
         }
@@ -50,7 +50,7 @@ namespace demo
         {
             using (var db = new OrderContext())
             {
-                var query = db.Orders.Include("Customer").Include("Commodities").Where(o => o.Commodities.Where(com => com.CommodityName == commodityName)!=null);
+                var query = db.Orders.Include("Customer").Include("Commodities").Include("Details").Where(o => o.Commodities.Where(com => com.CommodityName == commodityName)!=null);
                 return query.ToList<Order>();
             }
         }
@@ -59,7 +59,7 @@ namespace demo
         {
             using (var db = new OrderContext())
             {
-                var query = db.Orders.Include("Customer").Include("Commodities").Where(o => o.TotalPrice==totalPrice);
+                var query = db.Orders.Include("Customer").Include("Commodities").Include("Details").Where(o => o.TotalPrice==totalPrice);
                 return query.ToList<Order>();
             }
         }
@@ -70,7 +70,7 @@ namespace demo
         {
             using (var db = new OrderContext())
             {
-                OrderList = db.Orders.Include("Customer").Include("Commodities").ToList<Order>();
+                OrderList = db.Orders.Include("Customer").Include("Commodities").Include("Details").ToList<Order>();
             }
         }
 

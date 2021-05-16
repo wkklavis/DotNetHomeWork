@@ -23,9 +23,9 @@ namespace demo
         }
         public void Biding()
         {
-            nameTextBox.DataBindings.Add("Text", this.Order.customer, "Name");
-            ageTextBox.DataBindings.Add("Text", this.Order.customer, "Age");
-            sexTextBox.DataBindings.Add("Text", this.Order.customer, "Sex");
+            nameTextBox.DataBindings.Add("Text", this.Order.Customer, "Name");
+            ageTextBox.DataBindings.Add("Text", this.Order.Customer, "Age");
+            sexTextBox.DataBindings.Add("Text", this.Order.Customer, "Sex");
             addressTextBox.DataBindings.Add("Text", this.Order.Details, "Address");
             commodityTextBox.DataBindings.Add("Text", this.Order.Commodities.First(), "CommodityName");
             //quantityTextBox.DataBindings.Add("Text", this.order.list, "Count");

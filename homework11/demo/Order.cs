@@ -11,7 +11,8 @@ namespace demo
     [Serializable]
     public class Order : IComparable
     {
-        public Customer customer { get; set; }
+        public Customer Customer { get; set; }
+        public int CustomerId { get; set; }
 
         [Key]
         public Int32 OrderNo { get; set; }
@@ -36,18 +37,19 @@ namespace demo
         
         
         public OrderDetails Details { get; set; }
+        public int DetailsId { get; set; }
         public List<CommodityInfo> Commodities { get; set; } = new List<CommodityInfo>();
 
         public Order(Customer customer, Int32 orderNo, OrderDetails details)
         {
-            this.customer = customer;
+            this.Customer = customer;
             OrderNo = orderNo;
             this.Details = details;
         }
 
         public Order(Customer customer, int orderNo, double totalPrice, OrderDetails details)
         {
-            this.customer = customer;
+            this.Customer = customer;
             OrderNo = orderNo;
             TotalPrice = totalPrice;
             Details = details;
@@ -93,20 +95,20 @@ namespace demo
         public override string ToString()
         {
 
-            return $" {customer} 订单{OrderNo} 配送{Details} 总计{TotalPrice}元";
+            return $" {Customer} 订单{OrderNo} 配送{Details} 总计{TotalPrice}元";
         }
 
         public override bool Equals(object obj)
         {
             return obj is Order order &&
-                   EqualityComparer<Customer>.Default.Equals(customer, order.customer) &&
+                   EqualityComparer<Customer>.Default.Equals(Customer, order.Customer) &&
                    OrderNo == order.OrderNo;
         }
 
         public override int GetHashCode()
         {
             int hashCode = 305862269;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Customer>.Default.GetHashCode(customer);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Customer>.Default.GetHashCode(Customer);
             hashCode = hashCode * -1521134295 + OrderNo.GetHashCode();
             return hashCode;
         }

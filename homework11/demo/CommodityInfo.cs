@@ -14,7 +14,7 @@ namespace demo
         public Int32 CommodityNo { get; set; }
         public String CommodityName { get; set; }
         public Double CommodityPrice { get; set; }
-        public Order Order { get; set; }
+        /*public Order Order { get; set; }*/
 
         public CommodityInfo(Int32 commodityNo, string commodityName, double commodityPrice)
         {
